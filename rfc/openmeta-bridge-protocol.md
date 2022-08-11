@@ -147,6 +147,13 @@ In order to verify the user's access to the object and knowledge of the claiming
 
 ## Transfer ownership
 
+Once an object has been claimed, its possession rights can be further transferred to another user. This covers the case when the associated real world counterpart is given away or sold. The goal is to keep this process as simple as possible and to minimize the interaction between owner and receiver. In order to transfer an object, the owner needs:
+
+(1) Possession of the private key *sk_ow*, which belongs to the public key *pk_ow* to which the object is registered
+(2) Knowledge of the public key *pk_re* of the receiver
+
+If those requirements are met, the owner can initiate a transfer without any further input of the receiver. This means that the receiver is not required to accept, but is also not able to deny, the object to be transferred. The owner issues a signed transfer request (specification needed) to the ledger which verifies whether the signature is valid under *pk_ow* and in case of success the new owner of the object is *pk_re*.
+
 # Claiming ownership
 
 # Transfering ownership
