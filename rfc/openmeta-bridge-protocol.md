@@ -97,31 +97,49 @@ The protocol, in abstract, follows the following steps:
 While other protocols follows very proprietary and non-accessible approaches, the goal for this specification is to outlay a foundation of interoperability which is distributed ledger and smart contract platform agnostic. This protocol shall serve as a template for future implementations and can be extended upon by the community. Therefor, some of the descriptions are also generic and are up to the implementor to define in more technical details depending on the platform he is using. Nevertheless, the principles and protocol steps should always remain at the core.
 
 ## Notional conventions
+(Typical RFC notional conventions)
 
 # Tag/Object registration
+(How to register a tag from the perspective of the creator)
 
-## Tag types
+## Tag types (optional)
+(A list of different tag types and their security implications, follow up with why we chose this specific tag and not another one)
 
 ## Tag requirements
+(List all cryptographic and functional requirements that the tag needs in order to be operating with the protocol)
 Note that the assumption is that the tag is integrated fully into the product, while still being readable via NFC.
 
 ## Tag identifier
+(Introduce the public key as the unique tag identifier/DNA and what else it can be used for)
 
-## Object data
+## Object data (optional)
+(Elaborate upon the additional information/data that can be attached to the tag on the distributed ledger)
 
 ## Tag authentication
+(How to authenticate the tag and when it's recommended to do so)
 
-## Tag alternatives
+## Tag alternatives (optional)
+(Mention future alternatives such as crypto anchors, AI camera object identification or modern types of fabric scanners)
 
 # Protocol/Smartcontract endpoints
+(Define the fixed endpoints that every smartcontract intending to follow the protocol should have)
 
-## Distributed Ledger agnosticisim
+## Distributed Ledger agnosticisim (optional)
+(Explain that this can work on any distributed ledger and it is not limited to a specific one. List the requirements that a distributed ledger should have in order to be able to run the protocol as a smartcontract, i.e. support of specific cryptographic primitives, algorithms, etc.)
 
-## Migration strategies
+## Migration strategies (optional)
+(Elaborate how to upgrade/maintain the smartcontract and move inbetween ledgers)
 
 ## Query identifier
+(The very first smart contract function; describe how you can query an item by it's identifier/public key and which data you expect in return)
 
 ## Claim object
+(The second smart contract function; which parameters do you need to send in order to be able to claim this item for yourself)
+
+## Transfer ownership
+(Third smart contract function; how do you transfer your item from yourself to someone else)
+
+# Claiming ownership
 
 The claiming-protocol intends to convey the ownership rights of an object, and its representative on the blockchain, from the manufacturer to a user. This process is one of the most critical parts of the whole system as it has to considerate practical aspects (like store purchases) on the one hand, but on the other hand also has high security demands due to possibly severe implications for participating member e.g. when transferring luxury goods. The key idea behind this protocol is to utilize cryptographically secure hash functions together with unforgeable digital signatures to build a system which allows for a two-factor authorization consisting of a knowledge- and an ownership aspect.
 
@@ -145,7 +163,7 @@ In order to verify the user's access to the object and knowledge of the claiming
 (2) *u_pop* can be verified with the public key of the object *pk_o*
 (3) *o_claim* can be verified with the public key of the user *pk_u*
 
-## Transfer ownership
+# Transfering ownership
 
 Once an object has been claimed, its possession rights can be further transferred to another user. This covers the case when the associated real world counterpart is given away or sold. The goal is to keep this process as simple as possible and to minimize the interaction between owner and receiver. In order to transfer an object, the owner needs:
 
@@ -154,15 +172,14 @@ Once an object has been claimed, its possession rights can be further transferre
 
 If those requirements are met, the owner can initiate a transfer without any further input of the receiver. This means that the receiver is not required to accept, but is also not able to deny, the object to be transferred. The owner issues a signed transfer request (specification needed) to the ledger which verifies whether the signature is valid under *pk_ow* and in case of success the new owner of the object is *pk_re*.
 
-# Claiming ownership
-
-# Transfering ownership
-
 # Verifying ownership
+(from a protocol perspective, describe the steps necessary in order to be sure that this item belongs to x i.e. the person in front of you)
 
-## Additional metadata
+## Additional metadata (optional)
+(describe the openess for any additional data fields that can be attached to the tag during registration)
 
-# Extensibility
+# Extensibility (optional)
+(Mention that these protocols are intended to be extended upon, possibly with some ideas?)
 
 # Security Considerations
 
@@ -181,5 +198,6 @@ TODO Security
 ## Syntax
 
 ## Object examples
+(tangible examples of the items and communication packages)
 
 ## Acknowledgements
