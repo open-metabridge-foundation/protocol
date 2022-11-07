@@ -107,10 +107,29 @@ While other protocols follows very proprietary and non-accessible approaches, th
 
 ## Tag requirements
 (List all cryptographic and functional requirements that the tag needs in order to be operating with the protocol)
-Note that the assumption is that the tag is integrated fully into the product, while still being readable via NFC.
+(Note that the assumption is that the tag is integrated fully into the product, while still being readable via NFC.)
+
+In order to connect the physical object with the digital world, every product is augmented with an NFC-Tag (other options might be possible). The tag contains information that unambiguously identify the product and provides the core functionality for the digital transfer. The following requirements must be fulfilled:
+
+**General Requirements**
+
+- Capable of securely storing an asymmetric key pair
+- Be able to produce digital signatures of arbitrary messages on request
+- Optional: Capable of storing certificates
+
+**Hardware Requirements**
+
+- High durability (washable, bendable, protected against heat, etc.)
+- Optional: Tamper detection
 
 ## Tag identifier
 (Introduce the public key as the unique tag identifier/DNA and what else it can be used for)
+
+One of the key requirements that leverages a seamless tracking of the tangible product in the digital world, is the tags' capability of storing a cryptographic key pair consisting of public and private key. The pair is associated with the tag during its production and besides its cryptographic purpose of signing and verifying messages using private and public key respectively, the public key serves another important role, that is, it uniquely identifies the tag.
+
+**Lookup Metadata:** In the curse of the product registration, the brand reads the public key from the tag and stores it on the ledger as part of a certificate alongside other metadata. The user, on the other side, can later retrieve this data by querying the ledger using the public key as an identifier.
+
+**Verify proof of possession:** In order to digitally claim an object for herself, a user needs two components. First a claim code, which can be obtained with the product purchase, and second, a proof of possession of the actual asset. During this process, claim code and PoP, which is a signature produced by the product, are sent to the ledger. The ledger later uses the public key of the product to check the validity of the proof of possession.
 
 ## Object data (optional)
 (Elaborate upon the additional information/data that can be attached to the tag on the distributed ledger)
@@ -174,6 +193,20 @@ If those requirements are met, the owner can initiate a transfer without any fur
 
 # Verifying ownership
 (from a protocol perspective, describe the steps necessary in order to be sure that this item belongs to x i.e. the person in front of you)
+
+With the help of this protocol, the user is able to verify the validity of the product in hand. The specification thereby provides distinct verification cycles depending on whether there is an active internet connection available and/or the tag is able to store certificates. Inherently, the online verification process is the preferred variant due to the availability of the most recent data, providing the highest level of security. In contrast, the offline verification protocol relies on cached data and acts a backup solution for remote places.
+
+To perform the *High level (online) verification*, the user follows the subsequent steps:
+
+(1) Read the public key *pk_o* from the tag
+(2) Query the ledger by *pk_o* in order to obtain a list of associated certificates
+(3) Request a list of brands from the ledger
+(4) Verify the received certificates against the list of brands 
+
+To perform the *Medium level (offline) verification*, the user follows the subsequent steps:
+
+(1) Read the product certificate from the tag
+(2) Verify the received certificate against a previously stored list of brands
 
 ## Additional metadata (optional)
 (describe the openess for any additional data fields that can be attached to the tag during registration)
