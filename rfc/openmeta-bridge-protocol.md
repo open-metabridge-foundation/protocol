@@ -152,6 +152,9 @@ One of the key requirements that leverages a seamless tracking of the tangible p
 ## Query identifier
 (The very first smart contract function; describe how you can query an item by it's identifier/public key and which data you expect in return)
 
+## Register object
+(smart contract function; which parameters do you need to send in order to be able to register an object in your name for others to claim)
+
 ## Claim object
 (The second smart contract function; which parameters do you need to send in order to be able to claim this item for yourself)
 
