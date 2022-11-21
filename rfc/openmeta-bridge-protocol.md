@@ -119,6 +119,7 @@ In order to connect the physical object with the digital world, every product is
 
 **Hardware Requirements**
 
+- NFC capabilities including the antenna (with a minimum size to actually make it scannable via a mobile phone)
 - High durability (washable, bendable, protected against heat, etc.)
 - Optional: Tamper detection
 
@@ -152,11 +153,45 @@ One of the key requirements that leverages a seamless tracking of the tangible p
 ## Query identifier
 (The very first smart contract function; describe how you can query an item by it's identifier/public key and which data you expect in return)
 
+```
+/// @notice Retrieve object information
+/// @param pk_hash_object A compact representation of the object's public key
+/// @return Data associated with the object
+function queryObject(bytes32 pk_hash_object) external view returns (object memory);
+```
+
+This function allows the retrieval of object information stored on the ledger. It requires the public key of the object within a compact form (i.e. hashed) and returns a struct containing metadata of the aforementioned. This is a straight forward function, that uses the hash of the public key to look up the metadata that was registered together with the object.
+
 ## Register object
 (smart contract function; which parameters do you need to send in order to be able to register an object in your name for others to claim)
 
+```
+/// @notice Register an object on the ledger
+/// @param pk_object The public key of the object 
+/// @param c_hash The hash of the claim_code
+/// @param o_reg A Signature of claim_code and c_hash, signed by the creator
+/// @param pk_creator Public key of the creator
+/// @return Indicates whether the registration was successful
+function registerObject(pkey pk_object, bytes32 c_hash, sig o_reg, pkey pk_creator) external view returns (bool);
+```
+
+This function can be used to register a new object in the ecosystem. It requires the public keys of both, object and creator, together with the c_hash, which basically is the hashed claim_code and a signature over the concatenation of object public key and c_hash. It returns a bool, indicating whether the registering process was a successful. As a first step the function has to check whether there was an object already registered with the same public key, in that case function just returns false. Otherwise, it has to verify whether the creator is approved in some way, i.e. by fetching a list from an external service or requesting it from another smart-contract. Now it has to be checked whether the issued o_reg-signature is valid. This ensures that in fact an authorized creator submitted the object for registration. If any of the previous checks failed the function returns false otherwise it returns true and the object is ready to be claimed. 
+
 ## Claim object
 (The second smart contract function; which parameters do you need to send in order to be able to claim this item for yourself)
+
+```
+/// @notice Claim an object for the given user
+/// @param pk_object The public key of the object 
+/// @param pk_user The public key of the user 
+/// @param claim_code The secret required to claim the object 
+/// @param u_pop A Signature of claim_code and public key of the user, signed by the object
+/// @param o_claim A Signature of u_pop, signed by the user
+/// @return Indicates whether the claiming process was successful
+function claimObject(pkey pk_object, pkey pk_user, byte32 claim_code, sig u_pop, sig o_claim) external view returns (bool);
+```
+
+This function allows a user to claim a previously registered object. It requires the public keys of object and user, together with the secret claim_code. Additionally, to u_pop, a signature of claim_code and public key of the user, signed by the object and o_claim which is a signature of u_pop, created by the user. It returns a flag that indicates success or failure. In order to verify whether a claiming is possible, the function first checks whether c_hash, which was registered together with the object, is an actual hash of the claim_code. Next, it validates whether u_pop is a valid signature of the same claim_code, concatenated with the public key of the user created by the object. The function must also check at this point, if the object is indeed claimable, which means correctly registered and not claimed before. As a next step, o_claim has to be validated as a signature of u_pop under the public key of the user. If all checks have passed, give ownership to the user and return true otherwise return false.
 
 ## Transfer ownership
 (Third smart contract function; how do you transfer your item from yourself to someone else)
@@ -193,7 +228,6 @@ Once an object has been claimed, its possession rights can be further transferre
 (2) Knowledge of the public key *pk_re* of the receiver
 
 If those requirements are met, the owner can initiate a transfer without any further input of the receiver. This means that the receiver is not required to accept, but is also not able to deny, the object to be transferred. The owner issues a signed transfer request (specification needed) to the ledger which verifies whether the signature is valid under *pk_ow* and in case of success the new owner of the object is *pk_re*.
-
 # Verifying ownership
 (from a protocol perspective, describe the steps necessary in order to be sure that this item belongs to x i.e. the person in front of you)
 
@@ -202,8 +236,8 @@ With the help of this protocol, the user is able to verify the validity of the p
 To perform the *High level (online) verification*, the user follows the subsequent steps:
 
 (1) Read the public key *pk_o* from the tag
-(2) Query the ledger by *pk_o* in order to obtain a list of associated certificates
-(3) Request a list of brands from the ledger
+(2) Query the ledger by *pk_o* in order to obtain claiming transaction artifacts
+(3) Get a list of brands from a suitable source (ledger, external webserver, ...) 
 (4) Verify the received certificates against the list of brands 
 
 To perform the *Medium level (offline) verification*, the user follows the subsequent steps:
