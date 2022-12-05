@@ -1,9 +1,9 @@
 ---
-title: "OpenMeta Bridge Protocol (OMBP)"
-abbrev: "OMBP"
+title: "MetaBridge Protocol (MBP)"
+abbrev: "MBP"
 category: info
 
-docname: draft-openmeta-dinrg-protocol-latest
+docname: draft-metabridge-dinrg-protocol-latest
 v: 3
 area: "IRTF"
 workgroup: "Decentralized Internet Infrastructure"
@@ -41,42 +41,42 @@ TODO Abstract
 This document is fully work in progress.
 
 # Introduction
-This protocol family extends upon any non-fungible token (NFT) standard. It enables these digital assets to become connected with a physical counterpart, as well as the other way around; physical assets can be immortalized on any distributed ledger that supports smart contracts by minting a cryptographically connected token.
+This protocol extends upon the Non-Fungible Token (NFT) ERC-721 standard. It enables digital assets to become connected with a physical counterpart, as well as the other way around; physical assets can be immortalized on any distributed ledger that supports smart contracts by minting a cryptographically connected token.
 
-This specification defines the core functionalities: registering and claiming the digital ownership of a physical object. It also describes the security and privacy considerations for usage.
+This specification defines the core functionalities: registering and claiming the digital ownership of a physical item. It also describes the security and privacy considerations for usage.
 
-Additionally, the protocol family includes specifications on physical object verification and the management of the physical object manufactures in the context of this novel ecosystem.
+Additionally, the protocol includes specifications on physical item verification and the management of the physical item manufactures in the context of this novel ecosystem.
 
-From a philosophical perspective, this protocol family is aiming to merge and connect objects from the real (tangible and physical) world into digital universes, following the interconnected metaverse principles. Through these protocols, it is possible to create eternal references in the metaverse possibly going way beyond the lifetime of the physical object. Common terms for such approaches are often referred to as digital twins or totality.
+From a philosophical perspective, this protocol is aiming to merge and connect items from the real (tangible and physical) world into digital universes, following the interconnected metaverse principles. Through this protocol and extensions thereof, it is possible to create eternal references in the metaverse possibly going way beyond the lifetime of the physical item. Common terms for such approaches are often referred to as digital twins or totality.
 The authors are aware that this is an ambitious project, though multiple other parties are working on similar approaches which commonly are proprietary, closed source and not agnostic.
 The goal with this specification is to lay out a common standardized foundation that allows to be extended upon in a collaborative approach.
+
+<!-- TODO: MetaBridge Name explanation. -->
 
 ## Roles
 The following participants are involved as part of the protocol communication flows.
 
-### Item / Object / Asset
-The physical Object lies at the core of the protocol. An Object is brought to life by an Creator. For example Fashion Brand XYZ designing and producing Fashion Item 123. This protocol and an implementation thereof probably only makes sense for items of higher value, though the protocol is laid out to be as generic as possible and can work with any item, independently from its value.
-This protocol can work with any item wherein a NFC tag can be fully integrated and be readable with an external device. The removal of an NFC tag should require force and result in visible damage to the item, such that tampering is recognizable.
+### Item
+The physical Item lies at the core of the protocol. An Item is brought to life by a Creator. For example Fashion Brand XYZ designing and producing Fashion Item 123. The value in the MetaBridge protocol and an implementation thereof rises linear to the value of the physical Item, though the protocol is laid out to be as generic as possible and can work with any Item, independently from its value.
+This protocol can work with any Item wherein an NFC tag can be fully integrated and be readable with an external device. The removal of an NFC tag should require force and result in visible damage to the item, such that tampering is recognizable/detected.
 
-### Token / NFT
-Once a physical Item has passed through the protocol, a tokenized version is created. It is now fully representable by this token. The intention of the token is to be traded on the open market. It could even be used as a collateral for borrowing/lending applications if enough liquidity exists.
+### ancNFT / pNFT
+Once a physical Item has passed through the protocol, a tokenized version is created. It is now fully representable by this alternate NFT, called a pNFT (physical NFT) or ancNFT ((crypto) anchored NFT) <!-- TODO: Choice! -->. The intention of the pNFT is to be traded on the open market. Additionally, it could be used as a collateral for borrowing/lending applications in DeFi applications, assuming enough liquidity exists.
 
-### Creator / Originator / Author / Designer / Inventor / Manufacturer
-Any physical item with integrity requirements has been thoughtfully designed by an creator. It can originate from an artist, company or just any person. The creator kicks of the lifespan of an item once he decides to produce it and bring his idea or invention to life. It is in his responsibility to actively decide whether or not the item is intended to become tokenized on the blockchain and thereby requires the item to walk through the different stages of the protocol in conjunction with the creator and user.
+### Creator
+Any physical item with integrity requirements has been thoughtfully designed by a Creator. The Creator is synonymus for any designer, artist, company or person that creates Items. The Creator kicks of the lifespan of an Item once he decides to produce it and bring his idea or invention to life. It is in his responsibility to actively decide whether or not the Item is intended to become tokenized on the blockchain in the form of a pNFT and thereby requires the item to walk through the different stages of the MetaBridge Protocol in conjunction with the User <!-- LINK -->.
 
-If he chooses to do so, he will need to responsibly implement the protocol at hand (or choose an appropriate and certified implementation at hand for his specific use-case) and ensure that the NFC chip is fully integrated into the product and becomes part of the identity. Most likely, this kind of integration and intervention into the product makes sense with newly designed items that already have the advantages and aspects of the protocol in mind. Though, it is also possibly to "upgrade" old items to support the protocol simply by finding an appropriate spot to attach the NFC chip on.
+If he chooses to do so, he will need to responsibly implement the MetaBridge Protocol (or choose an appropriate and certified implementation at hand for his specific use-case) and ensure to follow the listed Tag requirements <!-- LINK -->. Most likely, this kind of integration and intervention into the product makes sense with newly designed Items that already have the advantages and aspects of the protocol in mind. Though, it is also possible to "upgrade" old Items to support the MetaBridge protocol simply by finding an appropriate spot to attach the NFC chip on.
 
-Unlike other protocols, the creator does not become the original owner of the item. Instead, he only registers the item in the smartcontract and keeps it open for the user to claim and thereby mint the first genesis NFT/Token. The creator could of course also claim the item himself, though this is not necessarily the intention of this protocol. Instead, once the item has been registered, gaining the ownership of the item is intentionally not based on the key pair of the creator. As described in section XXX, the user can follow a simple two factor process that does not require the creator to access his key pair anymore after he has handed out the claiming code.
+Unlike other protocols, the creator does not become the original owner of the item. Instead, he only registers the item in the smartcontract and keeps it open for the user to claim and thereby mint the first genesis ancNFT. The creator could of course also claim the item himself, though this is not necessarily the intention of the MetaBridge protocol. Instead, once the item has been registered, gaining the ownership of the item is intentionally not based on the key pair of the Creator. As described in section XXX, the User can follow a simple two factor process that does not require the Creator to access his key pair anymore after he has handed out the claiming code.
+<!-- How does this compare to whitelist minting? -->
 
-This allows for a more trustless environment when reselling items in for example stores, etc. where the security of the operations might not be on par with the centralistic key management of the creator. Instead, he can freely produce his items, hand them out to resellers and stores together with the claiming codes, without providing access and the necessitiy for his key pair to be interacted with. This requires a lower level of trust in the merchants.
+This allows for a more trustless environment when reselling items in for example stores, etc. where the security of the operations might not be on par with the centralistic key management of the Creator. Instead, he can freely produce his items, hand them out to resellers and stores together with the claiming codes, without providing access and the necessitiy for his key pair to be interacted with. This requires a lower level of trust in the merchants.
+<!-- Loophole: Resellers and stores can still just use the claiming codes to claim the Items for themselves, achieving the same goal as if they had access to the key pair of the Creator, though for limited amount of items; those who the Creator provided the claiming codes for. -->
 
-
-### User / Owner
+### User
 Users of the protocol can verify, claim and transfer items between each other. Once he claims a item and comes in the physical posession of it, he also becomes an owner.
 He is an independent party from the creator and is interested in gaining ownership of a physical item or the corresponding token.
-
-### DAO / Notes about Trust Worthy List of Creators
-(Removed as a role for now)
 
 ### Distributed Ledger (Smart Contract Platform)
 This protocol is supposed to be implemented on a distributed ledger, since it is in the intention of the authors that ownwership rights are not managed in centralistic databases. Noone should be able to alter or manipulate your belongings -- not even the state. The idea of the protocol is to become the template for indenpendent hyper structures on several distributed ledgers. Thus, the protocol is supposed to be implemented as a smartcontract and the intention is to be smart contract platform agnostic.
@@ -84,17 +84,17 @@ This protocol is supposed to be implemented on a distributed ledger, since it is
 ## Protocol Flow
 The protocol, in abstract, follows the following steps:
 
-0. The creator registers the product with the smart contract
-1. An out-of-band transaction between the creator and the user takes place
-2. The creator transmits the claim code to the user
-3. The user verifies the authenticity of the item in conjunction with the ledger
-4. The user request a proof of physical possession from the item
-5. Together with the claim code and the proof of physical possession, the user requests to claim the item at the ledger
+0. The Creator registers the Item with the smart contract
+1. An out-of-band transaction between the Creator and the User takes place
+2. The Creator transmits the Claim Code to the User
+3. The User verifies the authenticity of the Item in conjunction with the ledger
+4. The User request a proof of physical possession from the Item
+5. Together with the Claim Code and the proof of physical possession, the User requests to claim the Item at the ledger
 
 (diagram)
 
 ## Interoperability
-While other protocols follows very proprietary and non-accessible approaches, the goal for this specification is to outlay a foundation of interoperability which is distributed ledger and smart contract platform agnostic. This protocol shall serve as a template for future implementations and can be extended upon by the community. Therefor, some of the descriptions are also generic and are up to the implementor to define in more technical details depending on the platform he is using. Nevertheless, the principles and protocol steps should always remain at the core.
+While other protocols follows very proprietary and non-accessible approaches, the goal for this specification is to outlay a foundation of interoperability which is agnostic to any distributed ledger and smart contract platform. This protocol shall serve as a template for future implementations and can be extended upon by the community. Therefor, some of the descriptions are also generic and are up to the implementor to define in more technical details depending on the platform he is using. Nevertheless, the principles and protocol steps should always remain at the core.
 
 ## Notional conventions
 (Typical RFC notional conventions)
@@ -102,14 +102,11 @@ While other protocols follows very proprietary and non-accessible approaches, th
 # Tag/Object registration
 (How to register a tag from the perspective of the creator)
 
-## Tag types (optional)
-(A list of different tag types and their security implications, follow up with why we chose this specific tag and not another one)
-
 ## Tag requirements
 (List all cryptographic and functional requirements that the tag needs in order to be operating with the protocol)
 (Note that the assumption is that the tag is integrated fully into the product, while still being readable via NFC.)
 
-In order to connect the physical object with the digital world, every product is augmented with an NFC-Tag (other options might be possible). The tag contains information that unambiguously identify the product and provides the core functionality for the digital transfer. The following requirements must be fulfilled:
+In order to connect the physical Item with the digital world, every Item is augmented with an NFC-Tag (other options might be possible). The tag contains information that unambiguously identify the product and provides the core functionality for the digital transfer. The following requirements must be fulfilled:
 
 **General Requirements**
 
@@ -123,16 +120,21 @@ In order to connect the physical object with the digital world, every product is
 - High durability (washable, bendable, protected against heat, etc.)
 - Optional: Tamper detection
 
+**Additional Assumptions**
+
+- The tag is fully integrated into the Item
+- The removal of the tag should require force and result in visible damage to the Item, such that tampering is recognizable/detected.
+
 ## Tag identifier
 (Introduce the public key as the unique tag identifier/DNA and what else it can be used for)
 
-One of the key requirements that leverages a seamless tracking of the tangible product in the digital world, is the tags' capability of storing a cryptographic key pair consisting of public and private key. The pair is associated with the tag during its production and besides its cryptographic purpose of signing and verifying messages using private and public key respectively, the public key serves another important role, that is, it uniquely identifies the tag.
+One of the key requirements that leverages a seamless tracking of the tangible product in the digital world, is the tags' capability of storing a cryptographic key pair consisting of a public and private key. The pair is associated with the tag during its production and besides its cryptographic purpose of signing and verifying messages using the private and public key respectively, the public key serves another important role, that is, it uniquely identifies the tag.
 
-**Lookup Metadata:** In the curse of the product registration, the brand reads the public key from the tag and stores it on the ledger as part of a certificate alongside other metadata. The user, on the other side, can later retrieve this data by querying the ledger using the public key as an identifier.
+**Lookup Metadata:** In the course of the product registration, the Creator reads the public key from the tag and stores it on the ledger as part of a certificate alongside other metadata. The User, on the other side, can later retrieve this data by querying the ledger using the public key as an identifier.
 
-**Verify proof of possession:** In order to digitally claim an object for herself, a user needs two components. First a claim code, which can be obtained with the product purchase, and second, a proof of possession of the actual asset. During this process, claim code and PoP, which is a signature produced by the product, are sent to the ledger. The ledger later uses the public key of the product to check the validity of the proof of possession.
+**Verify Proof-of-Possession:** In order to digitally claim ownership over an Item, a User needs two components. First a Claim Code, which can be obtained with the Item purchase, and second, a Proof-of-Possession (PoP) of the physical Item. During this process, the Claim Code and PoP, which is a signature produced by the product, are sent to the ledger. The ledger later uses the public key of the Item to check the validity of the Proof-of-Possession.
 
-## Object data (optional)
+## Item data (optional)
 (Elaborate upon the additional information/data that can be attached to the tag on the distributed ledger)
 
 ## Tag authentication
@@ -252,6 +254,11 @@ To perform the *Medium level (offline) verification*, the user follows the subse
 (Mention that these protocols are intended to be extended upon, possibly with some ideas?)
 
 # Security Considerations
+
+## Assumptions
+
+0. The cryptographic key pair on the chip is stored securely
+1. The Creator and User are responsible for their own secure key management
 
 ## (Mathematical proof)
 
