@@ -91,112 +91,97 @@ The protocol, in abstract, follows the following steps:
 4. The User request a proof of physical possession from the Item
 5. Together with the Claim Code and the proof of physical possession, the User requests to claim the Item at the ledger
 
-(diagram)
+<!-- (diagram) TODO -->
 
 ## Interoperability
 While other protocols follows very proprietary and non-accessible approaches, the goal for this specification is to outlay a foundation of interoperability which is agnostic to any distributed ledger and smart contract platform. This protocol shall serve as a template for future implementations and can be extended upon by the community. Therefor, some of the descriptions are also generic and are up to the implementor to define in more technical details depending on the platform he is using. Nevertheless, the principles and protocol steps should always remain at the core.
 
-## Notional conventions
-(Typical RFC notional conventions)
 
 # Tag/Object registration
-(How to register a tag from the perspective of the creator)
 
 ## Tag requirements
-(List all cryptographic and functional requirements that the tag needs in order to be operating with the protocol)
-(Note that the assumption is that the tag is integrated fully into the product, while still being readable via NFC.)
 
 In order to connect the physical Item with the digital world, every Item is augmented with an NFC-Tag (other options might be possible). The tag contains information that unambiguously identify the product and provides the core functionality for the digital transfer. The following requirements must be fulfilled:
 
-**General Requirements**
+### General Requirements
 
 - Capable of securely storing an asymmetric key pair
 - Be able to produce digital signatures of arbitrary messages on request
 - Optional: Capable of storing certificates
 
-**Hardware Requirements**
+### Hardware Requirements
 
 - NFC capabilities including the antenna (with a minimum size to actually make it scannable via a mobile phone)
 - High durability (washable, bendable, protected against heat, etc.)
 - Optional: Tamper detection
 
-**Additional Assumptions**
+### Additional Assumptions
 
 - The tag is fully integrated into the Item
-- The removal of the tag should require force and result in visible damage to the Item, such that tampering is recognizable/detected.
+- The removal of the tag should require force and result in visible damage to the Item, such that tampering is recognizable/detected either damaging the Item or tag permanently.
 
 ## Tag identifier
-(Introduce the public key as the unique tag identifier/DNA and what else it can be used for)
 
 One of the key requirements that leverages a seamless tracking of the tangible product in the digital world, is the tags' capability of storing a cryptographic key pair consisting of a public and private key. The pair is associated with the tag during its production and besides its cryptographic purpose of signing and verifying messages using the private and public key respectively, the public key serves another important role, that is, it uniquely identifies the tag.
 
-**Lookup Metadata:** In the course of the product registration, the Creator reads the public key from the tag and stores it on the ledger as part of a certificate alongside other metadata. The User, on the other side, can later retrieve this data by querying the ledger using the public key as an identifier.
+### Lookup Metadata
 
-**Verify Proof-of-Possession:** In order to digitally claim ownership over an Item, a User needs two components. First a Claim Code, which can be obtained with the Item purchase, and second, a Proof-of-Possession (PoP) of the physical Item. During this process, the Claim Code and PoP, which is a signature produced by the product, are sent to the ledger. The ledger later uses the public key of the Item to check the validity of the Proof-of-Possession.
+In the course of the product registration, the Creator reads the public key from the tag and stores it on the ledger as part of a certificate alongside other metadata. The User, on the other side, can later retrieve this data by querying the ledger using the public key as an identifier.
 
-## Item data (optional)
-(Elaborate upon the additional information/data that can be attached to the tag on the distributed ledger)
+### Verify Proof-of-Possession
 
-## Tag authentication
-(How to authenticate the tag and when it's recommended to do so)
+In order to digitally claim ownership over an Item, a User needs two components. First a Claim Code, which can be obtained with the Item purchase, and second, a Proof-of-Possession (PoP) of the physical Item. During this process, the Claim Code and PoP, which is a signature produced by the product, are sent to the ledger. The ledger later uses the public key of the Item to check the validity of the Proof-of-Possession.
 
-## Tag alternatives (optional)
-(Mention future alternatives such as crypto anchors, AI camera object identification or modern types of fabric scanners)
+
+<!-- ## Tag authentication
+(How to authenticate the tag and when it's recommended to do so) TODO -->
+
 
 # Protocol/Smartcontract endpoints
-(Define the fixed endpoints that every smartcontract intending to follow the protocol should have)
-
-## Distributed Ledger agnosticisim (optional)
-(Explain that this can work on any distributed ledger and it is not limited to a specific one. List the requirements that a distributed ledger should have in order to be able to run the protocol as a smartcontract, i.e. support of specific cryptographic primitives, algorithms, etc.)
-
-## Migration strategies (optional)
-(Elaborate how to upgrade/maintain the smartcontract and move inbetween ledgers)
+This section describes the fixed endpoints that any smartcontract intending to follow the protocol should at least have.
 
 ## Query identifier
-(The very first smart contract function; describe how you can query an item by it's identifier/public key and which data you expect in return)
 
-```
-/// @notice Retrieve object information
-/// @param pk_hash_object A compact representation of the object's public key
-/// @return Data associated with the object
+~~~~~~~~
+@notice Retrieve object information
+@param pk_hash_object A compact representation of the object's public key
+@return Data associated with the object
 function queryObject(bytes32 pk_hash_object) external view returns (object memory);
-```
+~~~~~~~~
 
 This function allows the retrieval of object information stored on the ledger. It requires the public key of the object within a compact form (i.e. hashed) and returns a struct containing metadata of the aforementioned. This is a straight forward function, that uses the hash of the public key to look up the metadata that was registered together with the object.
 
 ## Register object
-(smart contract function; which parameters do you need to send in order to be able to register an object in your name for others to claim)
 
-```
-/// @notice Register an object on the ledger
-/// @param pk_object The public key of the object 
-/// @param c_hash The hash of the claim_code
-/// @param o_reg A Signature of claim_code and c_hash, signed by the creator
-/// @param pk_creator Public key of the creator
-/// @return Indicates whether the registration was successful
+~~~~~~~~
+@notice Register an object on the ledger
+@param pk_object The public key of the object 
+@param c_hash The hash of the claim_code
+@param o_reg A Signature of claim_code and c_hash, signed by the creator
+@param pk_creator Public key of the creator
+@return Indicates whether the registration was successful
 function registerObject(pkey pk_object, bytes32 c_hash, sig o_reg, pkey pk_creator) external view returns (bool);
-```
+~~~~~~~~
 
 This function can be used to register a new object in the ecosystem. It requires the public keys of both, object and creator, together with the c_hash, which basically is the hashed claim_code and a signature over the concatenation of object public key and c_hash. It returns a bool, indicating whether the registering process was a successful. As a first step the function has to check whether there was an object already registered with the same public key, in that case function just returns false. Otherwise, it has to verify whether the creator is approved in some way, i.e. by fetching a list from an external service or requesting it from another smart-contract. Now it has to be checked whether the issued o_reg-signature is valid. This ensures that in fact an authorized creator submitted the object for registration. If any of the previous checks failed the function returns false otherwise it returns true and the object is ready to be claimed. 
 
 ## Claim object
-(The second smart contract function; which parameters do you need to send in order to be able to claim this item for yourself)
 
-```
-/// @notice Claim an object for the given user
-/// @param pk_object The public key of the object 
-/// @param pk_user The public key of the user 
-/// @param claim_code The secret required to claim the object 
-/// @param u_pop A Signature of claim_code and public key of the user, signed by the object
-/// @param o_claim A Signature of u_pop, signed by the user
-/// @return Indicates whether the claiming process was successful
+~~~~~~~~
+@notice Claim an object for the given user
+@param pk_object The public key of the object 
+@param pk_user The public key of the user 
+@param claim_code The secret required to claim the object 
+@param u_pop A Signature of claim_code and public key of the user, signed by the object
+@param o_claim A Signature of u_pop, signed by the user
+@return Indicates whether the claiming process was successful
 function claimObject(pkey pk_object, pkey pk_user, byte32 claim_code, sig u_pop, sig o_claim) external view returns (bool);
-```
+~~~~~~~~
 
 This function allows a user to claim a previously registered object. It requires the public keys of object and user, together with the secret claim_code. Additionally, to u_pop, a signature of claim_code and public key of the user, signed by the object and o_claim which is a signature of u_pop, created by the user. It returns a flag that indicates success or failure. In order to verify whether a claiming is possible, the function first checks whether c_hash, which was registered together with the object, is an actual hash of the claim_code. Next, it validates whether u_pop is a valid signature of the same claim_code, concatenated with the public key of the user created by the object. The function must also check at this point, if the object is indeed claimable, which means correctly registered and not claimed before. As a next step, o_claim has to be validated as a signature of u_pop under the public key of the user. If all checks have passed, give ownership to the user and return true otherwise return false.
 
-## Transfer ownership
-(Third smart contract function; how do you transfer your item from yourself to someone else)
+<!-- ## Transfer ownership
+(Third smart contract function; how do you transfer your item from yourself to someone else) TODO -->
 
 # Claiming ownership
 
@@ -230,8 +215,8 @@ Once an object has been claimed, its possession rights can be further transferre
 (2) Knowledge of the public key *pk_re* of the receiver
 
 If those requirements are met, the owner can initiate a transfer without any further input of the receiver. This means that the receiver is not required to accept, but is also not able to deny, the object to be transferred. The owner issues a signed transfer request (specification needed) to the ledger which verifies whether the signature is valid under *pk_ow* and in case of success the new owner of the object is *pk_re*.
+
 # Verifying ownership
-(from a protocol perspective, describe the steps necessary in order to be sure that this item belongs to x i.e. the person in front of you)
 
 With the help of this protocol, the user is able to verify the validity of the product in hand. The specification thereby provides distinct verification cycles depending on whether there is an active internet connection available and/or the tag is able to store certificates. Inherently, the online verification process is the preferred variant due to the availability of the most recent data, providing the highest level of security. In contrast, the offline verification protocol relies on cached data and acts a backup solution for remote places.
 
@@ -247,11 +232,6 @@ To perform the *Medium level (offline) verification*, the user follows the subse
 (1) Read the product certificate from the tag
 (2) Verify the received certificate against a previously stored list of brands
 
-## Additional metadata (optional)
-(describe the openess for any additional data fields that can be attached to the tag during registration)
-
-# Extensibility (optional)
-(Mention that these protocols are intended to be extended upon, possibly with some ideas?)
 
 # Security Considerations
 
@@ -275,6 +255,6 @@ TODO Security
 ## Syntax
 
 ## Object examples
-(tangible examples of the items and communication packages)
+<!-- (tangible examples of the items and communication packages) -->
 
 ## Acknowledgements
