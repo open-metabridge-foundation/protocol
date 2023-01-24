@@ -1,7 +1,7 @@
 ---
 title: "MetaBridge Protocol (MBP)"
 abbrev: "MBP"
-category: info
+category: exp
 
 docname: draft-metabridge-dinrg-protocol-latest
 v: 3
@@ -13,8 +13,8 @@ venue:
   type: "Research Group"
   mail: "din@irtf.org"
   arch: "https://www.ietf.org/mail-archive/web/din/current/maillist.html"
-  github: "project-metatag/internet-draft"
-  latest: "https://project-metatag.github.io/internet-draft/draft-metatag-dinrg-protocol.html"
+  github: "open-metabridge-foundation/protocol"
+  latest: "https://open-metabridge-foundation.github.io/open-metabridge-foundation/protocol/metabridge-protocol.html"
 
 author:
  -
@@ -32,7 +32,9 @@ informative:
 
 --- abstract
 
-TODO Abstract
+The MetaBridge Protocol 1.0 is an extension to the [ERC-721: Non-Fungible Token Standard](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/) as introduced to Ethereum with [EIP-721](https://eips.ethereum.org/EIPS/eip-721). It enables a hard cryptographic binding of physical assets to the NFT as well as independent claiming of such assets by introducing the role of a creator that transmits a claiming code to the user.
+
+This specification defines the core MetaBridge functionality: binding a physical anchor to the NFT and the use of a claiming code to gain ownership thereof. It also describes the security and privacy considerations for using the MetaBridge Protocol.
 
 
 --- middle
@@ -189,30 +191,30 @@ The claiming-protocol intends to convey the ownership rights of an object, and i
 
 In short, to claim an object, the user has to prove:
 
-(1) Ownership of the object, utilizing the object's capability to produce signatures
-(2) Knowledge of a claiming code, issued to the user during the purchase phase
+0. Ownership of the object, utilizing the object's capability to produce signatures
+1. Knowledge of a claiming code, issued to the user during the purchase phase
 
 At this point in time, the object was already registered on the blockchain. During the aforementioned step, the object's identity *pk_o* was associated with the hash value of the claiming code *c_hash = Hash(claim_code)*. The *claim_code* however is a secret only known to the manufacturer. 
 
 The process of transferring the object from the manufacturer to the user know works as follows:
 
-(1) During the purchase, the *claim_code* is handed over to the user (e.g. on the receipt)
-(2) The user now makes use of the object's signing features to create a proof-of-possession *u_pop*, which is a signature over the *claim code* concatenated with the user's public key *pk_u*, created with the secret key of the object *sk_o*
-(3) In order to create a binding between user and object, *u_pop* is signed by the user using her private key *sk_u* resulting in a signature *o_claim*
-(4) *claim_code*, *o_claim* and *u_pop* are then transferred to the ledger
+0. During the purchase, the *claim_code* is handed over to the user (e.g. on the receipt)
+1. The user now makes use of the object's signing features to create a proof-of-possession *u_pop*, which is a signature over the *claim code* concatenated with the user's public key *pk_u*, created with the secret key of the object *sk_o*
+2. In order to create a binding between user and object, *u_pop* is signed by the user using her private key *sk_u* resulting in a signature *o_claim*
+3. *claim_code*, *o_claim* and *u_pop* are then transferred to the ledger
 
 In order to verify the user's access to the object and knowledge of the claiming code, the ledger now checks that:
 
-(1) The *claim_code* is the preimage of the *c_hash*
-(2) *u_pop* can be verified with the public key of the object *pk_o*
-(3) *o_claim* can be verified with the public key of the user *pk_u*
+0. The *claim_code* is the preimage of the *c_hash*
+1. *u_pop* can be verified with the public key of the object *pk_o*
+2. *o_claim* can be verified with the public key of the user *pk_u*
 
 # Transfering ownership
 
 Once an object has been claimed, its possession rights can be further transferred to another user. This covers the case when the associated real world counterpart is given away or sold. The goal is to keep this process as simple as possible and to minimize the interaction between owner and receiver. In order to transfer an object, the owner needs:
 
-(1) Possession of the private key *sk_ow*, which belongs to the public key *pk_ow* to which the object is registered
-(2) Knowledge of the public key *pk_re* of the receiver
+0. Possession of the private key *sk_ow*, which belongs to the public key *pk_ow* to which the object is registered
+1. Knowledge of the public key *pk_re* of the receiver
 
 If those requirements are met, the owner can initiate a transfer without any further input of the receiver. This means that the receiver is not required to accept, but is also not able to deny, the object to be transferred. The owner issues a signed transfer request (specification needed) to the ledger which verifies whether the signature is valid under *pk_ow* and in case of success the new owner of the object is *pk_re*.
 
@@ -222,15 +224,15 @@ With the help of this protocol, the user is able to verify the validity of the p
 
 To perform the *High level (online) verification*, the user follows the subsequent steps:
 
-(1) Read the public key *pk_o* from the tag
-(2) Query the ledger by *pk_o* in order to obtain claiming transaction artifacts
-(3) Get a list of brands from a suitable source (ledger, external webserver, ...) 
-(4) Verify the received certificates against the list of brands 
+0. Read the public key *pk_o* from the tag
+1. Query the ledger by *pk_o* in order to obtain claiming transaction artifacts
+2. Get a list of brands from a suitable source (ledger, external webserver, ...) 
+3. Verify the received certificates against the list of brands 
 
 To perform the *Medium level (offline) verification*, the user follows the subsequent steps:
 
-(1) Read the product certificate from the tag
-(2) Verify the received certificate against a previously stored list of brands
+0. Read the product certificate from the tag
+1. Verify the received certificate against a previously stored list of brands
 
 
 # Security Considerations
