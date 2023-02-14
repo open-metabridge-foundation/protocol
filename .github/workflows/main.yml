@@ -1,0 +1,42 @@
+# The name of the workflow
+name: Deploy to Github Pages
+
+# The trigger for the workflow
+on:
+  push:
+    # Run the workflow on push to the main branch
+    branches:
+      - main
+
+# Define a job for the workflow
+jobs:
+  build:
+    # Run the job on the latest version of Ubuntu
+    runs-on: ubuntu-latest
+
+    # Define a list of steps for the job
+    steps:
+    # Checkout the code from the repository
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Install the dependencies and build rfc
+    - name: Install dependencies and build rfc
+      run: |
+        cd rfc
+        sudo apt update
+        sudo apt install python3-pip
+        sudo apt install ruby
+        gem install kramdown-rfc
+        pip install xml2rfc
+        kramdown-rfc metabridge-protocol.md > index.xml
+        xml2rfc --html index.xml
+
+    # Deploy the built files to Github Pages
+    - name: Deploy to Github Pages
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        # The branch to deploy to
+        BRANCH: gh-pages
+        # The folder containing the built files (inside of the Source folder)
+        FOLDER: rfc
