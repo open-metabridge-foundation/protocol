@@ -1,4 +1,4 @@
----
+
 title: "MetaBridge Protocol (MBP)"
 abbrev: "MBP"
 category: exp
@@ -23,7 +23,7 @@ author:
     email: "hi@yannik.gold"
  -
     fullname: Marco Lewandowsky
-    email: "marco.lewandowsky@gmail.com"
+    email: "marco.lewandowsky@gmail.com" 
 
 normative:
 
@@ -70,7 +70,7 @@ Any physical item with integrity requirements has been thoughtfully designed by 
 
 If he chooses to do so, he will need to responsibly implement the MetaBridge Protocol (or choose an appropriate and certified implementation at hand for his specific use-case) and ensure to follow the listed Tag requirements <!-- LINK -->. Most likely, this kind of integration and intervention into the product makes sense with newly designed Items that already have the advantages and aspects of the protocol in mind. Though, it is also possible to "upgrade" old Items to support the MetaBridge protocol simply by finding an appropriate spot to attach the NFC chip on.
 
-Unlike other protocols, the creator does not become the original owner of the item. Instead, he only registers the item in the smartcontract and keeps it open for the user to claim and thereby mint the first genesis pNFT. The creator could of course also claim the item himself, though this is not necessarily the intention of the MetaBridge protocol. Instead, once the item has been registered, gaining the ownership of the item is intentionally not based on the key pair of the Creator. As described in section XXX, the User can follow a simple two factor process that does not require the Creator to access his key pair anymore after he has handed out the claiming code.
+Unlike other protocols, the creator does not become the original owner of the item. Instead, he only registers the item in the smart contract and keeps it open for the user to claim and thereby mint the first genesis pNFT. The creator could of course also claim the item himself, though this is not necessarily the intention of the MetaBridge protocol. Instead, once the item has been registered, gaining the ownership of the item is intentionally not based on the key pair of the Creator. As described in section XXX, the User can follow a simple two factor process that does not require the Creator to access his key pair anymore after he has handed out the claiming code.
 <!-- How does this compare to whitelist minting? -->
 
 This allows for a more trustless environment when reselling items in for example stores, etc. where the security of the operations might not be on par with the centralistic key management of the Creator. Instead, he can freely produce his items, hand them out to resellers and stores together with the claiming codes, without providing access and the necessitiy for his key pair to be interacted with. This requires a lower level of trust in the merchants.
@@ -107,7 +107,7 @@ In order to connect the physical Item with the digital world, every Item is augm
 
 ### General Requirements
 
-- Capable of securely storing an asymmetric key pair
+- Capable of securely storing an asymmetric key pair (prevent secret extraction)
 - Be able to produce digital signatures of arbitrary messages on request
 - Optional: Capable of storing certificates
 
@@ -140,7 +140,7 @@ In order to digitally claim ownership over an Item, a User needs two components.
 
 
 # Protocol/Smartcontract endpoints
-This section describes the fixed endpoints that any smartcontract intending to follow the protocol should at least have.
+This section describes the interfaces that every smart contract has to implement (at minimum) to be in line with the protocol specification. 
 
 ## Query identifier
 
@@ -148,7 +148,7 @@ This section describes the fixed endpoints that any smartcontract intending to f
 @notice Retrieve object information
 @param pk_hash_object A compact representation of the object's public key
 @return Data associated with the object
-function queryObject(bytes32 pk_hash_object) external view returns (object memory);
+function queryObject(pk_hash_object);
 ~~~~~~~~
 
 This function allows the retrieval of object information stored on the ledger. It requires the public key of the object within a compact form (i.e. hashed) and returns a struct containing metadata of the aforementioned. This is a straight forward function, that uses the hash of the public key to look up the metadata that was registered together with the object.
@@ -161,8 +161,8 @@ This function allows the retrieval of object information stored on the ledger. I
 @param c_hash The hash of the claim_code
 @param o_reg A Signature of claim_code and c_hash, signed by the creator
 @param pk_creator Public key of the creator
-@return Indicates whether the registration was successful
-function registerObject(pkey pk_object, bytes32 c_hash, sig o_reg, pkey pk_creator) external view returns (bool);
+@return Indicates whether the registration was successful
+function registerObject(pk_object, c_hash, o_reg, pk_creator);
 ~~~~~~~~
 
 This function can be used to register a new object in the ecosystem. It requires the public keys of both, object and creator, together with the c_hash, which basically is the hashed claim_code and a signature over the concatenation of object public key and c_hash. It returns a bool, indicating whether the registering process was a successful. As a first step the function has to check whether there was an object already registered with the same public key, in that case function just returns false. Otherwise, it has to verify whether the creator is approved in some way, i.e. by fetching a list from an external service or requesting it from another smart-contract. Now it has to be checked whether the issued o_reg-signature is valid. This ensures that in fact an authorized creator submitted the object for registration. If any of the previous checks failed the function returns false otherwise it returns true and the object is ready to be claimed. 
@@ -176,14 +176,24 @@ This function can be used to register a new object in the ecosystem. It requires
 @param claim_code The secret required to claim the object 
 @param u_pop A Signature of claim_code and public key of the user, signed by the object
 @param o_claim A Signature of u_pop, signed by the user
-@return Indicates whether the claiming process was successful
-function claimObject(pkey pk_object, pkey pk_user, byte32 claim_code, sig u_pop, sig o_claim) external view returns (bool);
+@return Indicates whether the claiming process was successful
+function claimObject(pk_object, pk_user, claim_code, u_pop, o_claim);
 ~~~~~~~~
 
 This function allows a user to claim a previously registered object. It requires the public keys of object and user, together with the secret claim_code. Additionally, to u_pop, a signature of claim_code and public key of the user, signed by the object and o_claim which is a signature of u_pop, created by the user. It returns a flag that indicates success or failure. In order to verify whether a claiming is possible, the function first checks whether c_hash, which was registered together with the object, is an actual hash of the claim_code. Next, it validates whether u_pop is a valid signature of the same claim_code, concatenated with the public key of the user created by the object. The function must also check at this point, if the object is indeed claimable, which means correctly registered and not claimed before. As a next step, o_claim has to be validated as a signature of u_pop under the public key of the user. If all checks have passed, give ownership to the user and return true otherwise return false.
 
-<!-- ## Transfer ownership
-(Third smart contract function; how do you transfer your item from yourself to someone else) TODO -->
+## Transfer object
+
+~~~~~~~~
+@notice Allows the owner to transfer an object in his possession to another user
+@param pk_object The public key of the object 
+@param pk_user The public key of the receiving user 
+@param trans_req The transfer request from the owner
+@return Indicates whether the transfer process was successful
+function transferObject(pk_object, pk_user, trans_req);
+~~~~~~~~
+
+This function enables the owner, who already has an object in his possession, the transfer of the objects' ownership rights to another user. It takes pk_user and pk_object, respectively the public key of receiver and object as input, which both hereby act as the respective entities' unique identifier. As a third parameter, the function also requires trans_req, the transfer request which signals the owners' intention to transfer an object. Basically, trans_req is a signature over the receiving users' public key, concatenated with the public key of the object and an additional counter. The counter is the number of previous transfers of this object increased by one, which can be obtained from the smart contract. As for every transfer the counter is increased and only valid transfers from the current owner are recognized by the smart contract, this mechanism effectively prevents the replay of old requests. Henceforth, the object transfer is a straight forward process. The smart contract checks whether the pretending owner (submitter of the request) is the actual owner of the object. If the counter is set as old_counter+1 and the trans_req is a valid signature, the transfer is considered finalized.
 
 # Claiming ownership
 
