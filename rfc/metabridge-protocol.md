@@ -1,4 +1,4 @@
-
+---
 title: "MetaBridge Protocol (MBP)"
 abbrev: "MBP"
 category: exp
