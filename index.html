@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="Internet-Draft">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
@@ -11,24 +11,22 @@
        The MetaBridge Protocol 1.0 is an extension of the  ERC-721: Non-Fungible Token Standard  which was originally introduced to Ethereum with  EIP-721 .  The protocol offers a hard cryptographic binding of physical assets to NFTs, as well as independent claiming of those assets. This is made possible by the introduction of a creator role, which enables the transmission of a claiming code to the user. 
        The protocol's core functionality involves binding a physical anchor to an NFT and using a claiming code to establish ownership. Additionally, the specification outlines important security and privacy considerations for using the MetaBridge Protocol. 
     " name="description">
-<meta content="xml2rfc 3.17.0" name="generator">
+<meta content="xml2rfc 3.17.1" name="generator">
 <meta content="Internet-Draft" name="keyword">
-<meta content="draft-metabridge-dinrg-protocol-latest" name="ietf.draft">
+<meta name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.17.0
+  xml2rfc 3.17.1
     Python 3.10.6
     appdirs 1.4.4
     ConfigArgParse 1.5.3
     google-i18n-address 2.5.2
-    html5lib 1.1
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.2
-    MarkupSafe 2.1.2
     pycountry 22.3.5
     PyYAML 5.4.1
     requests 2.25.1
-    setuptools 59.6.0
+    setuptools 67.7.2
     six 1.16.0
     wcwidth 0.2.6
 -->
@@ -60,7 +58,6 @@
 
 @viewport {
   zoom: 1.0;
-  width: extend-to-zoom;
 }
 @-ms-viewport {
   width: extend-to-zoom;
@@ -1207,11 +1204,11 @@ li > p:last-of-type:only-child {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">MBP</td>
-<td class="right">April 2023</td>
+<td class="right">May 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Goldgräbe &amp; Lewandowsky</td>
-<td class="center">Expires 10 October 2023</td>
+<td class="center">Expires 9 November 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1220,16 +1217,14 @@ li > p:last-of-type:only-child {
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">Decentralized Internet Infrastructure</dd>
-<dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-metabridge-dinrg-protocol-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-04-08" class="published">8 April 2023</time>
+<time datetime="2023-05-08" class="published">8 May 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Experimental</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-10-10">10 October 2023</time></dd>
+<dd class="expires"><time datetime="2023-11-09">9 November 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1253,16 +1248,8 @@ li > p:last-of-type:only-child {
 <a href="#name-about-this-document" class="section-name selfRef">About This Document</a>
       </h2>
 <p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
-<p id="section-note.1-2">
-        The latest revision of this draft can be found at <span><a href="https://open-metabridge-foundation.github.io/open-metabridge-foundation/protocol/metabridge-protocol.html">https://open-metabridge-foundation.github.io/open-metabridge-foundation/protocol/metabridge-protocol.html</a></span>.
-        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-metabridge-dinrg-protocol/">https://datatracker.ietf.org/doc/draft-metabridge-dinrg-protocol/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
-<p id="section-note.1-3">
-        Discussion of this document takes place on the
-        Decentralized Internet Infrastructure Research Group mailing list (<span><a href="mailto:din@irtf.org">mailto:din@irtf.org</a></span>),
-        which is archived at <span><a href="https://www.ietf.org/mail-archive/web/din/current/maillist.html">https://www.ietf.org/mail-archive/web/din/current/maillist.html</a></span>.
-        Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/din/">https://www.ietf.org/mailman/listinfo/din/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
-<p id="section-note.1-4">Source for this draft and an issue tracker can be found at
-        <span><a href="https://github.com/open-metabridge-foundation/protocol">https://github.com/open-metabridge-foundation/protocol</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">Source for this draft and an issue tracker can be found at
+        <span><a href="https://github.com/open-metabridge-foundation/protocol">https://github.com/open-metabridge-foundation/protocol</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1283,7 +1270,7 @@ li > p:last-of-type:only-child {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 10 October 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 9 November 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1409,24 +1396,13 @@ li > p:last-of-type:only-child {
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-privacy-considerations" class="internal xref">Privacy considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-references" class="internal xref">References</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-informative-references" class="internal xref">Informative References</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-appendix" class="internal xref">Appendix</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
-                <p id="section-toc.1-1.11.2.1.1"><a href="#appendix-B.1" class="auto internal xref">B.1</a>.  <a href="#name-syntax" class="internal xref">Syntax</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
-                <p id="section-toc.1-1.11.2.2.1"><a href="#appendix-B.2" class="auto internal xref">B.2</a>.  <a href="#name-item-examples" class="internal xref">Item examples</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.3">
-                <p id="section-toc.1-1.11.2.3.1"><a href="#appendix-B.3" class="auto internal xref">B.3</a>.  <a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
-</li>
-            </ul>
+            <p id="section-toc.1-1.11.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1508,19 +1484,187 @@ This protocol can work with any Item that can integrate an NFC tag and is readab
         <h3 id="name-protocol-flow">
 <a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-protocol-flow" class="section-name selfRef">Protocol Flow</a>
         </h3>
-<p id="section-2.2-1">The MetaBridge Protocol can be broken down into the following steps:<a href="#section-2.2-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2.2-2">
-<li id="section-2.2-2.1">The Creator registers the physical Item with the smart contract.<a href="#section-2.2-2.1" class="pilcrow">¶</a>
+<span id="name-generic-protocol-flow"></span><figure id="figure-1">
+          <div id="section-2.2-1.1">
+            <div class="alignLeft art-svg artwork" id="section-2.2-1.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="471px" height="452px" viewBox="-0.5 -0.5 471 452">
+                <defs></defs>
+                <g>
+                  <path d="M 60 140 L 223.63 140" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"></path>
+                  <path d="M 228.88 140 L 221.88 143.5 L 223.63 140 L 221.88 136.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"></path>
+                  <g transform="translate(-0.5 -0.5)">
+                    <switch>
+                      <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 140px; margin-left: 145px;">
+                          <div data-drawio-colors="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; background-color: rgb(255, 255, 255); white-space: nowrap;">Claim Code</div>
+                          </div>
+                        </div>
+                      </foreignObject>
+                      <text x="145" y="143" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="11px" text-anchor="middle">Claim Code</text>
+                    </switch>
+                  </g>
+                  <rect x="0" y="10" width="120" height="60" rx="9" ry="9" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"></rect>
+                  <g transform="translate(-0.5 -0.5)">
+                    <switch>
+                      <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 40px; margin-left: 1px;">
+                          <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">Creator</div>
+                          </div>
+                        </div>
+                      </foreignObject>
+                      <text x="60" y="44" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px" text-anchor="middle">Creator</text>
+                    </switch>
+                  </g>
+                  <path d="M 66.37 360 L 223.63 360" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"></path>
+                  <path d="M 61.12 360 L 68.12 356.5 L 66.37 360 L 68.12 363.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"></path>
+                  <path d="M 228.88 360 L 221.88 363.5 L 223.63 360 L 221.88 356.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"></path>
+                  <g transform="translate(-0.5 -0.5)">
+                    <switch>
+                      <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 360px; margin-left: 145px;">
+                          <div data-drawio-colors="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; background-color: rgb(255, 255, 255); white-space: nowrap;">Possession Proof</div>
+                          </div>
+                        </div>
+                      </foreignObject>
+                      <text x="145" y="363" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="11px" text-anchor="middle">Possession Proof</text>
+                    </switch>
+                  </g>
+                  <rect x="0" y="220" width="120" height="60" rx="9" ry="9" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"></rect>
+                  <g transform="translate(-0.5 -0.5)">
+                    <switch>
+                      <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 250px; margin-left: 1px;">
+                          <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">Item</div>
+                          </div>
+                        </div>
+                      </foreignObject>
+                      <text x="60" y="254" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px" text-anchor="middle">Item</text>
+                    </switch>
+                  </g>
+                  <path d="M 403.63 320 L 246.37 320" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"></path>
+                  <path d="M 408.88 320 L 401.88 323.5 L 403.63 320 L 401.88 316.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"></path>
+                  <path d="M 241.12 320 L 248.12 316.5 L 246.37 320 L 248.12 323.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"></path>
+                  <g transform="translate(-0.5 -0.5)">
+                    <switch>
+                      <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 320px; margin-left: 325px;">
+                          <div data-drawio-colors="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; background-color: rgb(255, 255, 255); white-space: nowrap;">Verify Item</div>
+                          </div>
+                        </div>
+                      </foreignObject>
+                      <text x="325" y="323" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="11px" text-anchor="middle">Verify Item</text>
+                    </switch>
+                  </g>
+                  <rect x="350" y="220" width="120" height="60" rx="9" ry="9" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"></rect>
+                  <g transform="translate(-0.5 -0.5)">
+                    <switch>
+                      <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 250px; margin-left: 351px;">
+                          <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">Distributed<br></br>Ledger</div>
+                          </div>
+                        </div>
+                      </foreignObject>
+                      <text x="410" y="254" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px" text-anchor="middle">Distributed...</text>
+                    </switch>
+                  </g>
+                  <path d="M 223.63 320 L 66.37 320" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"></path>
+                  <path d="M 228.88 320 L 221.88 323.5 L 223.63 320 L 221.88 316.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"></path>
+                  <path d="M 61.12 320 L 68.12 316.5 L 66.37 320 L 68.12 323.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"></path>
+                  <g transform="translate(-0.5 -0.5)">
+                    <switch>
+                      <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 320px; margin-left: 145px;">
+                          <div data-drawio-colors="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; background-color: rgb(255, 255, 255); white-space: nowrap;">Verify</div>
+                          </div>
+                        </div>
+                      </foreignObject>
+                      <text x="145" y="323" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="11px" text-anchor="middle">Verify</text>
+                    </switch>
+                  </g>
+                  <path d="M 240 400 L 403.63 400" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"></path>
+                  <path d="M 408.88 400 L 401.88 403.5 L 403.63 400 L 401.88 396.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"></path>
+                  <g transform="translate(-0.5 -0.5)">
+                    <switch>
+                      <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 400px; margin-left: 325px;">
+                          <div data-drawio-colors="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; background-color: rgb(255, 255, 255); white-space: nowrap;">Claim</div>
+                          </div>
+                        </div>
+                      </foreignObject>
+                      <text x="325" y="403" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="11px" text-anchor="middle">Claim</text>
+                    </switch>
+                  </g>
+                  <path d="M 223.63 100 L 66.37 100" fill="none" stroke="#666666" stroke-miterlimit="10" stroke-dasharray="1 1" pointer-events="stroke"></path>
+                  <path d="M 228.88 100 L 221.88 103.5 L 223.63 100 L 221.88 96.5 Z" fill="#666666" stroke="#666666" stroke-miterlimit="10" pointer-events="all"></path>
+                  <path d="M 61.12 100 L 68.12 96.5 L 66.37 100 L 68.12 103.5 Z" fill="#666666" stroke="#666666" stroke-miterlimit="10" pointer-events="all"></path>
+                  <g transform="translate(-0.5 -0.5)">
+                    <switch>
+                      <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 100px; margin-left: 145px;">
+                          <div data-drawio-colors="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; background-color: rgb(255, 255, 255); white-space: nowrap;">Transaction<br></br>(Out-of-band)</div>
+                          </div>
+                        </div>
+                      </foreignObject>
+                      <text x="145" y="103" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="11px" text-anchor="middle">Transaction...</text>
+                    </switch>
+                  </g>
+                  <ellipse cx="235" cy="7.5" rx="7.5" ry="7.5" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"></ellipse>
+                  <path d="M 235 15 L 235 40 M 235 20 L 220 20 M 235 20 L 250 20 M 235 40 L 220 60 M 235 40 L 250 60" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"></path>
+                  <g transform="translate(-0.5 -0.5)">
+                    <switch>
+                      <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 67px; margin-left: 235px;">
+                          <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: nowrap;">User</div>
+                          </div>
+                        </div>
+                      </foreignObject>
+                      <text x="235" y="79" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px" text-anchor="middle">User</text>
+                    </switch>
+                  </g>
+                  <path d="M 75 180 L 45 210 M 45 180 L 75 210" fill="none" stroke="rgb(0, 0, 0)" stroke-width="3" stroke-miterlimit="10" pointer-events="all"></path>
+                  <path d="M 60 70 L 60 180" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"></path>
+                  <path d="M 75 420 L 45 450 M 45 420 L 75 450" fill="none" stroke="rgb(0, 0, 0)" stroke-width="3" stroke-miterlimit="10" pointer-events="all"></path>
+                  <path d="M 60 280 L 60 420" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"></path>
+                  <path d="M 250 420 L 220 450 M 220 420 L 250 450" fill="none" stroke="rgb(0, 0, 0)" stroke-width="3" stroke-miterlimit="10" pointer-events="all"></path>
+                  <path d="M 235 60 L 235 420" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"></path>
+                  <path d="M 425 420 L 395 450 M 395 420 L 425 450" fill="none" stroke="rgb(0, 0, 0)" stroke-width="3" stroke-miterlimit="10" pointer-events="all"></path>
+                  <path d="M 410 280 L 410 420" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"></path>
+                </g>
+                <switch>
+                  <g requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"></g>
+                  <a transform="translate(0,-5)" xlink:href="https://www.diagrams.net/doc/faq/svg-export-text-problems" target="_blank">
+                    <text text-anchor="middle" font-size="10px" x="50%" y="100%">Text is not SVG - cannot display</text>
+                  </a>
+                </switch>
+              </svg><a href="#section-2.2-1.1.1" class="pilcrow">¶</a>
+</div>
+</div>
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
+<a href="#name-generic-protocol-flow" class="selfRef">Generic Protocol Flow</a>
+          </figcaption></figure>
+<p id="section-2.2-2">The MetaBridge Protocol can be broken down into the following steps:<a href="#section-2.2-2" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2.2-3">
+<li id="section-2.2-3.1">The Creator registers the physical Item with the smart contract.<a href="#section-2.2-3.1" class="pilcrow">¶</a>
 </li>
-          <li id="section-2.2-2.2">An out-of-band transaction occurs between the Creator and the User.<a href="#section-2.2-2.2" class="pilcrow">¶</a>
+          <li id="section-2.2-3.2">An out-of-band transaction occurs between the Creator and the User.<a href="#section-2.2-3.2" class="pilcrow">¶</a>
 </li>
-          <li id="section-2.2-2.3">The Creator provides the User with a unique Claim Code associated with the physical Item.<a href="#section-2.2-2.3" class="pilcrow">¶</a>
+          <li id="section-2.2-3.3">The Creator provides the User with a unique Claim Code associated with the physical Item.<a href="#section-2.2-3.3" class="pilcrow">¶</a>
 </li>
-          <li id="section-2.2-2.4">The User verifies the authenticity of the physical Item through the blockchain ledger.<a href="#section-2.2-2.4" class="pilcrow">¶</a>
+          <li id="section-2.2-3.4">The User verifies the authenticity of the physical Item through the ledger.<a href="#section-2.2-3.4" class="pilcrow">¶</a>
 </li>
-          <li id="section-2.2-2.5">The User requests a proof of physical possession for the Item.<a href="#section-2.2-2.5" class="pilcrow">¶</a>
+          <li id="section-2.2-3.5">The User requests a proof of physical possession for the Item.<a href="#section-2.2-3.5" class="pilcrow">¶</a>
 </li>
-          <li id="section-2.2-2.6">The User submits the Claim Code and proof of physical possession to the ledger to claim ownership of the corresponding anchored NFT (ancNFT).<a href="#section-2.2-2.6" class="pilcrow">¶</a>
+          <li id="section-2.2-3.6">The User submits the Claim Code and proof of physical possession to the ledger to claim ownership of the corresponding anchored NFT (ancNFT).<a href="#section-2.2-3.6" class="pilcrow">¶</a>
 </li>
         </ol>
 </section>
@@ -1853,43 +1997,35 @@ By this stage, the item has already been registered on the blockchain, and its i
 <p id="section-9-3">By implementing these measures, the OMBF protocols are designed to provide users with confidence in their ability to manage their personal data and protect their privacy.<a href="#section-9-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="references">
-<section id="appendix-A">
-      <h2 id="name-references">
-<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-references" class="section-name selfRef">References</a>
-    </h2>
-</section>
-</div>
-<div id="appendix">
-<section id="appendix-B">
-      <h2 id="name-appendix">
-<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-appendix" class="section-name selfRef">Appendix</a>
+<section id="section-10">
+      <h2 id="name-informative-references">
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
       </h2>
-<div id="syntax">
-<section id="appendix-B.1">
-        <h3 id="name-syntax">
-<a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-syntax" class="section-name selfRef">Syntax</a>
-      </h3>
+<dl class="references">
+<dt id="Article">[Article]</dt>
+      <dd>
+<span class="refTitle">"Authenticity and Transaction Integrity of Physical Goods"</span>, <time datetime="2019-06" class="refDate">June 2019</time>, <span>&lt;<a href="https://medium.com/magicofc/authenticity-and-transactions-of-physical-goods-a-blockchain-application-c25c02a4b93a?source=friends_link&amp;sk=ce73110706756d232ef176621c48dc12">https://medium.com/magicofc/authenticity-and-transactions-of-physical-goods-a-blockchain-application-c25c02a4b93a?source=friends_link&amp;sk=ce73110706756d232ef176621c48dc12</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="ERC-1155">[ERC-1155]</dt>
+      <dd>
+<span class="refTitle">"Token standard for fungible and non-fungible tokens (ERC-1155)"</span>, <span>&lt;<a href="https://eips.ethereum.org/EIPS/eip-1155">https://eips.ethereum.org/EIPS/eip-1155</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="ERC-721">[ERC-721]</dt>
+    <dd>
+<span class="refTitle">"Non-Fungible Token (NFT) standard (ERC-721)"</span>, <span>&lt;<a href="https://eips.ethereum.org/EIPS/eip-721">https://eips.ethereum.org/EIPS/eip-721</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
 </section>
-</div>
-<div id="item-examples">
-<section id="appendix-B.2">
-        <h3 id="name-item-examples">
-<a href="#appendix-B.2" class="section-number selfRef">B.2. </a><a href="#name-item-examples" class="section-name selfRef">Item examples</a>
-        </h3>
-</section>
-</div>
 <div id="acknowledgements">
-<section id="appendix-B.3">
-        <h3 id="name-acknowledgements">
-<a href="#appendix-B.3" class="section-number selfRef">B.3. </a><a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
-      </h3>
-</section>
-</div>
+<section id="appendix-A">
+      <h2 id="name-acknowledgements">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
+      </h2>
+<p id="appendix-A-1">We'd like to express our sincere gratitude to <a href="https://twitter.com/sebgaj">Sebastian Gajek</a>, who provided the necessary guidance, support, and encouragement throughout this project. Their extensive knowledge and expertise in the field of cryptographic protocols were invaluable in shaping and refining our ideas. We are grateful for his patience and dedication in answering our countless questions and offering constructive feedback. This project would not have been possible without his unwavering support and commitment. Thank you for your mentorship and for inspiring us.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-C">
+<section id="appendix-B">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
