@@ -3,18 +3,11 @@ title: "MetaBridge Protocol (MBP)"
 abbrev: "MBP"
 category: exp
 
-docname: draft-metabridge-dinrg-protocol-latest
 v: 3
-area: "IRTF"
 workgroup: "Decentralized Internet Infrastructure"
 keyword: Internet-Draft
 venue:
-  group: "Decentralized Internet Infrastructure"
-  type: "Research Group"
-  mail: "din@irtf.org"
-  arch: "https://www.ietf.org/mail-archive/web/din/current/maillist.html"
   github: "open-metabridge-foundation/protocol"
-  latest: "https://open-metabridge-foundation.github.io/open-metabridge-foundation/protocol/metabridge-protocol.html"
 
 author:
  -
@@ -25,9 +18,22 @@ author:
     fullname: Marco Lewandowsky
     email: "marco.lewandowsky@gmail.com" 
 
+informative:
+    ERC-721:
+        title: "Non-Fungible Token (NFT) standard (ERC-721)"
+        target: https://eips.ethereum.org/EIPS/eip-721
+        date: false
+    ERC-1155:
+        title: "Token standard for fungible and non-fungible tokens (ERC-1155)"
+        target: https://eips.ethereum.org/EIPS/eip-1155
+        date: false
+    Article:
+        title: "Authenticity and Transaction Integrity of Physical Goods"
+        target: https://medium.com/magicofc/authenticity-and-transactions-of-physical-goods-a-blockchain-application-c25c02a4b93a?source=friends_link&sk=ce73110706756d232ef176621c48dc12
+        date: Jun 27, 2019
+  
 normative:
 
-informative:
 
 
 --- abstract
@@ -82,16 +88,22 @@ Users of the protocol are able to verify, claim, and transfer ownership of items
 The MetaBridge protocol is designed to be implemented on a distributed ledger to ensure that ownership rights are not managed in centralized databases. The goal is to prevent anyone, including the state, from altering or manipulating a user's belongings. The protocol is intended to serve as a template for independent hyperstructures on multiple distributed ledgers, and as such, it is designed to be implemented as a smart contract platform agnostic.
 
 ## Protocol Flow
+
+<figure>
+    <name>Generic Protocol Flow</name>
+    <artset>
+        <artwork type="svg" src="./source/protocol_flow.svg"/>
+    </artset>
+</figure>
+
 The MetaBridge Protocol can be broken down into the following steps:
 
 0. The Creator registers the physical Item with the smart contract.
 1. An out-of-band transaction occurs between the Creator and the User.
 2. The Creator provides the User with a unique Claim Code associated with the physical Item.
-3. The User verifies the authenticity of the physical Item through the blockchain ledger.
+3. The User verifies the authenticity of the physical Item through the ledger.
 4. The User requests a proof of physical possession for the Item.
 5. The User submits the Claim Code and proof of physical possession to the ledger to claim ownership of the corresponding anchored NFT (ancNFT).
-
-<!-- (diagram) TODO -->
 
 ## Interoperability
 The main objective of this specification is to establish a foundation of interoperability that is not limited to any particular distributed ledger or smart contract platform, unlike other protocols that follow a closed and non-accessible approach. This protocol is designed to act as a model for future implementations and can be expanded upon by the community. As a result, certain aspects of the description are general and are open to interpretation by the implementor based on the technical details of the platform they are using. However, the underlying principles and protocol steps should always remain consistent.
@@ -302,13 +314,6 @@ By implementing these measures, the OMBF protocols are designed to provide users
 
 --- back
 
-# References
+# Acknowledgements
 
-# Appendix
-
-## Syntax
-
-## Item examples
-<!-- (tangible examples of the items and communication packages) -->
-
-## Acknowledgements
+We'd like to express our sincere gratitude to [Sebastian Gajek](https://twitter.com/sebgaj), who provided the necessary guidance, support, and encouragement throughout this project. Their extensive knowledge and expertise in the field of cryptographic protocols were invaluable in shaping and refining our ideas. We are grateful for his patience and dedication in answering our countless questions and offering constructive feedback. This project would not have been possible without his unwavering support and commitment. Thank you for your mentorship and for inspiring us.
