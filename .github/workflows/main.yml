@@ -28,6 +28,7 @@ jobs:
         sudo apt install python3-pip
         sudo apt install ruby
         sudo gem install kramdown-rfc
+        python3 -m pip install --upgrade pip setuptools wheel
         pip3 install xml2rfc --no-build-isolation
         kramdown-rfc metabridge-protocol.md > index.xml
         xml2rfc --html index.xml
